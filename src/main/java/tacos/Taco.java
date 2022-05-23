@@ -10,7 +10,7 @@
 //}
 package tacos;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -21,6 +21,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Data
@@ -32,6 +35,8 @@ public class Taco {
 	@NotNull
 	@Size(min = 5, message = "Name must be at least 5 characters long")
 	private String name;
+	
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date createdAt;
 	@ManyToMany(targetEntity = Ingredient.class)
 	@Size(min = 1, message = "You must choose at least 1 ingredient")
@@ -41,4 +46,15 @@ public class Taco {
 	void createdAt() {
 		this.createdAt = new Date(0);
 	}
+
+	public Taco(@NotNull @Size(min = 5, message = "Name must be at least 5 characters long") String name,
+			Date createdAt,
+			@Size(min = 1, message = "You must choose at least 1 ingredient") List<Ingredient> ingredients) {
+		super();
+		this.name = name;
+		this.createdAt = createdAt;
+		this.ingredients = ingredients;
+	}
+	
+	
 }

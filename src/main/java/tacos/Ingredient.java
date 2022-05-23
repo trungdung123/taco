@@ -6,6 +6,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import tacos.DTO.IngredientDTO;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,5 +25,9 @@ public class Ingredient {
 
 	public static enum Type {
 		WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE
+	}
+	
+	public IngredientDTO toDTO () {
+		return new IngredientDTO(id, name, type.toString());
 	}
 }
